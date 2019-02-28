@@ -4,6 +4,12 @@ var knex = require('knex')(config[env]);
 
 const getRoom = (listingId) => {
   return knex('listings')
+    // .select('*')
+    // .join('bookings', (builder) => {
+    //   builder.on('listings.id', 'bookings.listing_id').on('bookings.listing_id', knex.raw('?', [listingId]))
+    // })
+    // .join('bookings', {'listings.id': 'bookings.listing_id'})
+    // .from('listings')
     .where({id: listingId})
     .limit(1)
     .then(records => {

@@ -51,10 +51,8 @@ class Checkout extends React.Component {
 
 // Get request for listing information
   fetchRoom() {
-    let listingId = window.location.pathname.split('/')[2];
-
     $.ajax({
-      url: `/rooms/checkout/${listingId}`,
+      url: '/rooms/1',
       type: 'GET',
       success: (results) => {
         this.setState({
@@ -79,10 +77,9 @@ class Checkout extends React.Component {
     this.setState({
       reservedDays: []
     });
-    let listingId = window.location.pathname.split('/')[2];
 
     $.ajax({
-      url: `/rooms/bookings/${listingId}`,
+      url: '/rooms/bookings/1',
       type: 'get',
       success: (results) => {
         for (var i = 0; i < results.length; i++) {
@@ -123,7 +120,7 @@ class Checkout extends React.Component {
       });
       
       if (this.state.modalOpen === true) {
-        $("<div class='warning'>Please select a valid range of dates</div>").prependTo('.checkout-modal').fadeOut(1500);
+        $("<div class='warning'>Please select a valid range of dates</div>").prependTo('.modal').fadeOut(1500);
       } else if (this.state.modalOpen === false) {
         $("<div class='warning'>Please select a valid range of dates</div>").prependTo('#app').fadeOut(1500);
       }
@@ -138,10 +135,9 @@ class Checkout extends React.Component {
     // Takes the date from the moment and replaces the / with - for entry into the database
     var checkin = this.state.startDate.format('L').replace(/[/]/g, '-');
     var checkout = this.state.endDate.format('L').replace(/[/]/g, '-');
-    let listingId = window.location.pathname.split('/')[2];
 
     $.ajax({
-      url: `/rooms/checkout/${listingId}`,
+      url: '/rooms/1',
       type: 'post',
       data: {
         checkIn: checkin,
@@ -161,7 +157,7 @@ class Checkout extends React.Component {
         })
 
         if (this.state.modalOpen === true) {
-          $("<div class='warning'>Successfully booked</div>").prependTo('.checkout-modal').fadeOut(2000);
+          $("<div class='warning'>Successfully booked</div>").prependTo('.modal').fadeOut(2000);
 
         } else if (this.state.modalOpen === false) {
           $("<div class='warning'>Successfully booked</div>").prependTo('#app').fadeOut(2000);
