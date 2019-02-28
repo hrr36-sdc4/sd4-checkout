@@ -6,7 +6,7 @@
 | HTTP | API Endpoint |
 |------|------|
 | `GET` | /rooms/:listingId |
-| `POST` | /rooms/:listingId |
+| `POST` | /rooms |
 | `PUT` | /rooms/:listingId |
 | `DELETE` | /rooms/:listingId |
 
@@ -17,7 +17,7 @@
 | HTTP | API Endpoint |
 |------|------|
 | `GET` | /rooms/bookings/:listingId |
-| `POST` | /rooms/bookings/:listingId |
+| `POST` | /rooms/bookings |
 | `PUT` | /rooms/bookings/:bookingId |
 | `DELETE` | /rooms/bookings/:bookingId |
 
