@@ -49,20 +49,6 @@ const fakeBookings = () => ({
 exports.seed = async function(knex, Promise) {
   const fakeBookings = [
     {
-<<<<<<< HEAD
-      checkin: '2/7',
-      checkout: '2/10',
-      listing_id: 1
-    },
-    {
-      checkin: '2/12',
-      checkout: '2/16'
-      listing_id: 1
-    },
-    {
-      checkin: '3/1',
-      checkout: '3/5',
-=======
       checkin: '02-14-2019',
       checkout: '02-18-2019',
       numGuests: 2,
@@ -81,7 +67,6 @@ exports.seed = async function(knex, Promise) {
       checkout: '03-05-2019',
       numGuests: 2,
       total: 358,
->>>>>>> master
       listing_id: 2
     }
   ];
