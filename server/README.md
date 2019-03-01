@@ -1,8 +1,6 @@
 
 # API Endpoints
 
----
-
 # Room Listing Reservation Checkout
 
 | HTTP | API Endpoint |
@@ -12,8 +10,6 @@
 | `PUT` | /rooms/:listingId |
 | `DELETE` | /rooms/:listingId |
 
----
-
 # Bookings
 
 | HTTP | API Endpoint |
@@ -22,8 +18,6 @@
 | `POST` | /rooms/bookings |
 | `PUT` | /rooms/bookings/:bookingId |
 | `DELETE` | /rooms/bookings/:bookingId |
-
----
 
 # Parameters
 
