@@ -27,7 +27,8 @@ exports.up = function(knex, Promise) {
       table.integer('numGuests');
       table.integer('total');
       table.integer('listing_id').unsigned()
-        .references('listings.id');
+        .references('listings.id')
+        .onDelete('CASCADE');
     })
   ]);
 };
