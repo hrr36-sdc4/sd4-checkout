@@ -1,7 +1,9 @@
-### API Endpoints
+
+# API Endpoints
+
 ---
 
-#### Room Listing Reservation Checkout
+# Room Listing Reservation Checkout
 
 | HTTP | API Endpoint |
 |------|------|
@@ -12,7 +14,7 @@
 
 ---
 
-#### Bookings
+# Bookings
 
 | HTTP | API Endpoint |
 |------|------|
@@ -23,7 +25,7 @@
 
 ---
 
-#### Parameters
+# Parameters
 
 | Name | Type | Description |
 |------|------|-------------|
