@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db');
-// const postgres = require('../db/query.js');
 
 let app = express();
 app.use(bodyParser.json());
@@ -10,7 +9,6 @@ app.use(express.static(__dirname + '/../public'));
 
 let port = 3000;
 
-// calls getUsers to query the db with a variable listingId and returns the entry that matchs the params
 app.route('/rooms/:listingId')
   .get((req, res) => {
     db.getRoom(req.params.listingId)
