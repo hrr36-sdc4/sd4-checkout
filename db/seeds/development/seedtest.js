@@ -35,41 +35,37 @@ const createFakeData = () => ({
   otherDesc: faker.lorem.paragraphs(nb=faker.random.number({'min': 1, 'max': 3}))
 });
 
-const fakeBookings = () => ({
-  checkin: '2/' + faker.random.number({'min': 2, 'max': 5}).toString(),
-  checkout: '2/' + faker.random.number({'min': 6, 'max': 10}).toString(),
-  listing_id: 1
-});
+const createFakeBookings = (listingId) => {
+  let bookings = [];
+  let start = 1;
+  let end = 90;
+  while (start < end) {
+    start = faker.random.number({'min': start, 'max': end});
+    let until = Math.min(faker.random.number({'min': 3, 'max': 5}) + start, end);
+    let startMonth = start < 32 ? 3 : start < 62 ? 4 : 5;
+    let startDay = start < 32 ? start : start < 62 ? start - 31 : start - 61;
+    let untilMonth = until < 32 ? 3 : until < 62 ? 4 : 5;
+    let untilDay = until < 32 ? until : until < 62 ? until - 31 : until - 61;
+    bookings.push({
+      checkin: `0${startMonth}-${startDay < 10 ? '0' + startDay : startDay}-2019`,
+      checkout: `0${untilMonth}-${untilDay < 10 ? '0' + untilDay : untilDay}-2019`,
+      numGuests: faker.random.number({'min': 1, 'max': 4}),
+      total: faker.random.number({'min': 100, 'max': 3000}),
+      listing_id: listingId,
+    })
+  }
+  return bookings;
+};
 
+console.log(fakeBookings(1))
 
 exports.seed = async function(knex, Promise) {
-  const fakeBookings = [
-    {
-      checkin: '02-14-2019',
-      checkout: '02-18-2019',
-      numGuests: 2,
-      total: 500,
-      listing_id: 1
-    },
-    {
-      checkin: '02-20-2019',
-      checkout: '02-27-2019',
-      numGuests: 3,
-      total: 888,
-      listing_id: 1
-    },
-    {
-      checkin: '03-01-2019',
-      checkout: '03-05-2019',
-      numGuests: 2,
-      total: 358,
-      listing_id: 2
-    }
-  ];
-  const fakeData = [];
-  const desiredFakeData = 100;
+  let fakeData = [];
+  let fakeBookings = [];
+  const desiredFakeData = 1000;
   for (let i = 0; i < desiredFakeData; i++) {
     fakeData.push(createFakeData());
+    fakeBookings.concat(createFakeBookings());
   }
   await knex('listings')
     .insert(fakeData);
