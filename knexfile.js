@@ -1,7 +1,10 @@
 module.exports = {
   test: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
+      host: '127.0.0.1',
+      user: user,
+      password: password,
       database: 'rooms'
     },
     migrations: {
@@ -14,6 +17,9 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
+      host: '127.0.0.1',
+      user: user,
+      password: password,
       database: 'rooms'
     },
     migrations: {
