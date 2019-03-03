@@ -26,10 +26,10 @@ module.exports = {
       database: 'rooms'
     },
     migrations: {
-      directory: __dirname + '/db/mariadb/migrations'
+      directory: '/db/mariadb/migrations'
     },
     seeds: {
-      directory: __dirname + '/db/mariadb/seeds/development'
+      directory: '/db/mariadb/seeds/development'
     }
   }
 }

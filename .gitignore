@@ -35,3 +35,5 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
+.DS_STORE
