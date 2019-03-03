@@ -1,6 +1,6 @@
 const faker = require('faker');
 
-const createFakeData = () => ({
+const createFakeListings = () => ({
   price: faker.random.number({
     'min': 70,
     'max': 150
@@ -27,7 +27,7 @@ const createFakeData = () => ({
     'max': 3
   }),
   title: faker.name.firstName() + `'s ` + faker.company.catchPhraseAdjective() + ' Home',
-  address: faker.address.streetAddress(),
+  address: faker.address.city(),
   highlights: faker.lorem.paragraph(nb_sentences=faker.random.number({'min': 1, 'max': 4})),
   introDesc: faker.lorem.paragraph(nb_sentences=5, variable_nb_sentences=true),
   spaceDesc: faker.lorem.paragraphs(nb=faker.random.number({'min': 1, 'max': 6})),
@@ -58,11 +58,11 @@ const createFakeBookings = (listingId) => {
 };
 
 exports.seed = async function(knex, Promise) {
-  let fakeData = [];
+  let fakeListings = [];
   let fakeBookings = [];
-  const desiredFakeData = 1000;
+  const desiredfakeListings = 1000;
   for (let i = 0; i < desiredFakeData; i++) {
-    fakeData.push(createFakeData());
+    fakeData.push(createFakeListings());
     fakeBookings.concat(createFakeBookings());
   }
   await knex('listings')
