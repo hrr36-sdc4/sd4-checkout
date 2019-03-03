@@ -61,6 +61,7 @@ exports.seed = async function(knex, Promise) {
   let fakeListings = [];
   let fakeBookings = [];
   const desiredfakeListings = 1000;
+  let start = Date.now();
   for (let i = 0; i < desiredFakeData; i++) {
     fakeData.push(createFakeListings());
     fakeBookings.concat(createFakeBookings());
@@ -69,5 +70,10 @@ exports.seed = async function(knex, Promise) {
     .insert(fakeData);
   await knex('bookings')
     .insert(fakeBookings);
+
+  let end = Date.now();
+  let min = (start - end) * -1.666e-5;
+  let sec = Math.floor((min - Math.floor(min)) * 60);
+  console.log(`Total Time to seed db: ${Math.floor(min)} minutes ${sec} seconds`);
 };
 
