@@ -1,6 +1,5 @@
 const user = require('./config.js').user;
 const password = require('./config.js').password;
-console.log(user,password)
 
 module.exports = {
   test: {

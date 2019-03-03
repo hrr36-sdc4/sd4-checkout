@@ -12,7 +12,8 @@
     "react-dev": "webpack -d --watch",
     "start": "nodemon server/index.js",
     "build-sass": "sass --watch client/styles:public/styles",
-    "seed-db": "knex seed:run"
+    "seed-mariadb": "knex seed:run",
+    "try": "knex migrate:latest"
   },
   "jest": {
     "moduleNameMapper": {

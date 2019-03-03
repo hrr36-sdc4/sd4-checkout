@@ -1,7 +1,6 @@
-
 exports.up = function(knex, Promise) {
+  console.log("CALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL")
   return Promise.all([
-
     knex.schema.createTable('listings', function(table) {
       table.increments('id').primary();
       table.integer('price');
