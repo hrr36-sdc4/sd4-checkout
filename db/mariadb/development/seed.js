@@ -60,14 +60,14 @@ const createFakeBookings = (listingId) => {
 exports.seed = async function(knex, Promise) {
   let fakeListings = [];
   let fakeBookings = [];
-  const desiredfakeListings = 1000;
+  const desiredfakeListings = 100;
   let start = Date.now();
-  for (let i = 0; i < desiredFakeData; i++) {
-    fakeData.push(createFakeListings());
+  for (let i = 0; i < desiredfakeListings; i++) {
+    fakeListings.push(createFakeListings());
     fakeBookings.concat(createFakeBookings());
   }
   await knex('listings')
-    .insert(fakeData);
+    .insert(fakeListings);
   await knex('bookings')
     .insert(fakeBookings);
 

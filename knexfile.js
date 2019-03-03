@@ -1,5 +1,6 @@
 const user = require('./config.js').user;
 const password = require('./config.js').password;
+console.log(user,password)
 
 module.exports = {
   test: {
@@ -14,7 +15,7 @@ module.exports = {
       directory: __dirname + '/db/mariadb/migrations'
     },
     seeds: {
-      directory: __dirname + '/db/mariadb/seeds/development'
+      directory: __dirname + '/db/mariadb/development'
     }
   },
   development: {
@@ -26,10 +27,10 @@ module.exports = {
       database: 'rooms'
     },
     migrations: {
-      directory: '/db/mariadb/migrations'
+      directory: __dirname + '/db/mariadb/migrations'
     },
     seeds: {
-      directory: '/db/mariadb/seeds/development'
+      directory: __dirname + '/db/mariadb/development'
     }
   }
 }
