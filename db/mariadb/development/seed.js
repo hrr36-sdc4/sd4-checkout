@@ -41,11 +41,11 @@ const createFakeBookings = (listingId) => {
   let end = 88;
   while (start < end) {
     start = faker.random.number({'min': start, 'max': end});
-    let until = Math.min(faker.random.number({'min': 3, 'max': 5}) + start, end);
-    let startMonth = start < 32 ? 3 : start < 62 ? 4 : 5;
-    let startDay = start < 32 ? start : start < 62 ? start - 31 : start - 61;
-    let untilMonth = until < 32 ? 3 : until < 62 ? 4 : 5;
-    let untilDay = until < 32 ? until : until < 62 ? until - 31 : until - 61;
+    const until = faker.random.number({'min': 3, 'max': 5}) + start;
+    const startMonth = start < 32 ? 3 : start < 62 ? 4 : 5;
+    const startDay = start < 32 ? start : start < 62 ? start - 31 : start - 61;
+    const untilMonth = until < 32 ? 3 : until < 62 ? 4 : 5;
+    const untilDay = until < 32 ? until : until < 62 ? until - 31 : until - 61;
     bookings.push({
       checkin: `0${startMonth}-${startDay < 10 ? '0' + startDay : startDay}-2019`,
       checkout: `0${untilMonth}-${untilDay < 10 ? '0' + untilDay : untilDay}-2019`,
@@ -53,32 +53,33 @@ const createFakeBookings = (listingId) => {
       total: faker.random.number({'min': 100, 'max': 3000}),
       listing_id: listingId,
     })
-    start = until;
+    start = until + 1;
   }
   return bookings;
 };
 
 exports.seed = async function(knex, Promise) {
   let count = 0;
-  const desiredfakeListings = 10;
+  const desiredfakeListings = 7500;
+  const start = Date.now();
   const inc = () => count++;
-  let fakeListings = [];
-  let fakeBookings = [];
-  
-  let start = Date.now();
-  for (let i = 0; i < desiredfakeListings; i++) {
-    fakeListings.push(createFakeListings());
-    fakeBookings.concat(createFakeBookings(i));
+  while (count < 125) {
+    let fakeListings = [];
+    let fakeBookings = [];
+    for (let i = 1; i <= desiredfakeListings; i++) {
+      fakeListings.push(createFakeListings());
+      fakeBookings = fakeBookings.concat(createFakeBookings((7500 * count) + i));
+    }
+    await knex('listings')
+      .insert(fakeListings);
+    await knex('bookings')
+      .insert(fakeBookings);
+    await inc();
   }
-  console.log(fakeBookings)
-  await knex('listings')
-    .insert(fakeListings);
-  await knex('bookings')
-    .insert(fakeBookings);
 
-  let end = Date.now();
-  let min = (start - end) * -1.666e-5;
-  let sec = Math.floor((min - Math.floor(min)) * 60);
+  const end = Date.now();
+  const min = (start - end) * -1.666e-5;
+  const sec = Math.floor((min - Math.floor(min)) * 60);
   console.log(`Total Time to seed db: ${Math.floor(min)} minutes ${sec} seconds`);
 };
 
