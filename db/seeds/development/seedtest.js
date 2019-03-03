@@ -57,8 +57,6 @@ const createFakeBookings = (listingId) => {
   return bookings;
 };
 
-console.log(fakeBookings(1))
-
 exports.seed = async function(knex, Promise) {
   let fakeData = [];
   let fakeBookings = [];
