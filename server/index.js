@@ -5,7 +5,7 @@ const db = require('./db');
 let app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/../public'));
+app.use('rooms/:listingId', express.static(__dirname + '/../public'));
 
 let port = 3000;
 
