@@ -1,0 +1,108 @@
+@font-face {
+  font-family: 'Cereal-Light';
+  src: url('cereal-airbnb-font/AirbnbCereal-Light.tff').format('truetype');
+  font-weight: lighter;
+  font-style: normal;
+}
+
+ @font-face {
+  font-family: 'Cereal-Bold';
+  src: url('cereal-airbnb-font/AirbnbCereal-Bold.tff').format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+ @font-face {
+  font-family: 'Cereal-Book';
+  src: url('cereal-airbnb-font/AirbnbCereal-Book.tff').format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+ body {
+  width: 100%;
+  justify-content: center;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: 'Cereal-Bold','Cereal-Book', sans-serif;
+  color: #1b1b1b;
+  margin: 0 auto;
+}
+
+ @media screen and (min-width: 1200px) {
+  #container {
+    position: relative;
+    top: 20px;
+    left: 2%;
+    width: 1100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: auto auto 40px auto;
+  }
+}
+@media screen and (max-width: 1199px) {
+  #container {
+    display: flex;
+    justify-content: center;
+    margin: 18px 18px 40px 18px;
+  }
+}
+@media screen and (max-width: 576px) {
+  #desc {
+    max-width: 400px;
+    margin: 10px 18px auto 18px;
+  }
+  #desc .headers {
+    width: 360px !important;
+  }
+}
+#desc {
+  width: 600px;
+  min-height: calc(100vh - 70px);
+}
+#desc .title {
+  font-weight: bold;
+  font-size: 36px;
+}
+#desc .address {
+  font-size: 14px;
+  margin: 8px 0px 18px 0px;
+}
+#desc .headers {
+  display: flex;
+  width: 400px;
+  margin-bottom: 18px;
+  justify-content: space-between;
+}
+#desc .highlights {
+  padding: 18px;
+  margin-bottom: 18px;
+  border: 1px solid #cecece;
+}
+#desc .highlights .section-header {
+  margin: 0px 0px 10px 0px;
+  font-weight: bold;
+}
+#desc .section-header {
+  margin: 10px 0px 10px 0px;
+  font-weight: bold;
+}
+#desc .extras.open {
+  display: block;
+}
+#desc .extras.close {
+  display: none;
+}
+#desc .more-info {
+  border: none;
+  margin: 18px 0px 18px 0px;
+  font-size: 18px;
+  padding: 0;
+  color: #1fc5bd;
+}
+#desc .more-info:hover {
+  text-decoration: underline;
+}
+#desc .more-info:focus {
+  outline: 0;
+}

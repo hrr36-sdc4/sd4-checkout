@@ -1,3 +1,6 @@
+const user = require('./config.js').user;
+const password = require('./config.js').password;
+
 module.exports = {
   test: {
     client: 'mysql',
@@ -8,10 +11,10 @@ module.exports = {
       database: 'rooms'
     },
     migrations: {
-      directory: __dirname + '/db/maria/migrations'
+      directory: __dirname + '/db/mariadb/migrations'
     },
     seeds: {
-      directory: __dirname + '/db/maria/seeds/development'
+      directory: __dirname + '/db/mariadb/seeds/development'
     }
   },
   development: {
@@ -23,10 +26,10 @@ module.exports = {
       database: 'rooms'
     },
     migrations: {
-      directory: __dirname + '/db/maria/migrations'
+      directory: __dirname + '/db/mariadb/migrations'
     },
     seeds: {
-      directory: __dirname + '/db/maria/seeds/development'
+      directory: __dirname + '/db/mariadb/seeds/development'
     }
   }
 }
