@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Media from 'react-media';
 import Modal from 'react-modal';
+import path from 'path';
 import $ from 'jquery';
 import moment from 'moment';
 import './styles/input.scss';
@@ -51,8 +52,9 @@ class Checkout extends React.Component {
 
 // Get request for listing information
   fetchRoom() {
+    let listingId = window.location.pathname.split('/')[1];
     $.ajax({
-      url: '/rooms/1',
+      url: path.join('rooms', listingId),
       type: 'GET',
       success: (results) => {
         this.setState({
@@ -120,7 +122,7 @@ class Checkout extends React.Component {
       });
       
       if (this.state.modalOpen === true) {
-        $("<div class='warning'>Please select a valid range of dates</div>").prependTo('.modal').fadeOut(1500);
+        $("<div class='warning'>Please select a valid range of dates</div>").prependTo('.checkout-modal').fadeOut(1500);
       } else if (this.state.modalOpen === false) {
         $("<div class='warning'>Please select a valid range of dates</div>").prependTo('#app').fadeOut(1500);
       }
@@ -135,9 +137,9 @@ class Checkout extends React.Component {
     // Takes the date from the moment and replaces the / with - for entry into the database
     var checkin = this.state.startDate.format('L').replace(/[/]/g, '-');
     var checkout = this.state.endDate.format('L').replace(/[/]/g, '-');
-
+    let listingId = window.location.pathname.split('/')[2];
     $.ajax({
-      url: '/rooms/1',
+      url: path.join('rooms', 'bookings', listingId),
       type: 'post',
       data: {
         checkIn: checkin,
@@ -157,7 +159,7 @@ class Checkout extends React.Component {
         })
 
         if (this.state.modalOpen === true) {
-          $("<div class='warning'>Successfully booked</div>").prependTo('.modal').fadeOut(2000);
+          $("<div class='warning'>Successfully booked</div>").prependTo('.checkout-modal').fadeOut(2000);
 
         } else if (this.state.modalOpen === false) {
           $("<div class='warning'>Successfully booked</div>").prependTo('#app').fadeOut(2000);

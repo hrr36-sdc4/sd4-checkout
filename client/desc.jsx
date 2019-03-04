@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import path from 'path';
 import $ from 'jquery';
 import './styles/desc.scss';
 import Media from 'react-media';
@@ -24,8 +25,9 @@ class ListDesc extends React.Component {
     }
 
     fetchRoom() {
+        let listingId = window.location.pathname.split('/')[1];
         $.ajax({
-          url: '/rooms/1',
+          url: path.join('rooms', listingId),
           type: 'GET',
           success: (results) => {
             this.setState({

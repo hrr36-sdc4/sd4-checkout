@@ -1,26 +1,35 @@
+const user = require('./config.js').user;
+const password = require('./config.js').password;
+
 module.exports = {
   test: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
+      host: '127.0.0.1',
+      user: user,
+      password: password,
       database: 'rooms'
     },
     migrations: {
-      directory: __dirname + '/db/migrations'
+      directory: __dirname + '/db/mariadb/migrations'
     },
     seeds: {
-      directory: __dirname + '/db/seeds/development'
+      directory: __dirname + '/db/mariadb/development'
     }
   },
   development: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
+      host: '127.0.0.1',
+      user: user,
+      password: password,
       database: 'rooms'
     },
     migrations: {
-      directory: __dirname + '/db/migrations'
+      directory: __dirname + '/db/mariadb/migrations'
     },
     seeds: {
-      directory: __dirname + '/db/seeds/development'
+      directory: __dirname + '/db/mariadb/development'
     }
   }
 }
