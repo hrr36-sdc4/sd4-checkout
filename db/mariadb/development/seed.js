@@ -38,7 +38,7 @@ const createFakeListings = () => ({
   otherDesc: faker.random.words(1)
 });
 
-const createFakeBookings = (listingId) => {
+const createFakeBookings = (listingId, total) => {
   let bookings = [];
   let start = 1;
   let end = 88;
@@ -63,9 +63,8 @@ const createFakeBookings = (listingId) => {
 
 exports.seed = async function(knex, Promise) {
   let count = 0;
-  const batchSize = 1000;
-  const batchCount = 1;
-  // const batchCount = 156;
+  const batchSize = 10000;
+  const batchCount = 1000;
   const start = Date.now();
   const inc = () => count++;
   const deleteCsv = (name) => {
@@ -102,7 +101,7 @@ exports.seed = async function(knex, Promise) {
   while (count < batchCount) {
     let fakeBookings = [];
     for (let i = 1; i <= batchSize; i++) {
-      fakeBookings = fakeBookings.concat(createFakeBookings((batchSize * count) + i));
+      fakeBookings = fakeBookings.concat(createFakeBookings((batchSize * count) + i, total + fakeBookings.length));
     }
     total += fakeBookings.length;
     await new ObjectsToCsv(fakeBookings).toDisk('./db/mariadb/development/bookings.csv')
@@ -121,31 +120,6 @@ exports.seed = async function(knex, Promise) {
   min = (oldEnd - end) * -1.666e-5;
   sec = Math.floor((min - Math.floor(min)) * 60);
   console.log(`Total Time to seed ${total} bookings: ${Math.floor(min)} minutes ${sec} seconds`);
-
-  for (let i = 1; i <= total; i++) {
-    let randIndex = faker.random.number({'min': 1, 'max': total});
-    await knex('bookings')
-      .where('id', '=', i)
-      .update({
-        id: 0
-      });
-    await knex('bookings')
-      .where('id', '=', randIndex)
-      .update({
-        id: i
-      });
-    await knex('bookings')
-      .where('id', '=', 0)
-      .update({
-        id: randIndex
-      });
-  }
-
-  oldEnd = end;
-  end = Date.now();
-  min = (oldEnd - end) * -1.666e-5;
-  sec = Math.floor((min - Math.floor(min)) * 60);
-  console.log(`Total Time scramble: ${Math.floor(min)} minutes ${sec} seconds`);
   min = (start - end) * -1.666e-5;
   sec = Math.floor((min - Math.floor(min)) * 60);
   console.log(`Total Time: ${Math.floor(min)} minutes ${sec} seconds`);
