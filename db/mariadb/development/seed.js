@@ -31,11 +31,11 @@ const createFakeListings = () => ({
   }),
   title: faker.name.firstName() + `'s ` + faker.company.catchPhraseAdjective() + ' Home',
   address: faker.address.city(),
-  highlights: faker.lorem.paragraph(nb_sentences=faker.random.number({'min': 1, 'max': 4})),
-  introDesc: faker.lorem.paragraph(nb_sentences=5, variable_nb_sentences=true),
-  spaceDesc: faker.lorem.paragraphs(nb=faker.random.number({'min': 1, 'max': 1})),
-  guestDesc: faker.lorem.paragraphs(nb=faker.random.number({'min': 1, 'max': 1})),
-  otherDesc: faker.lorem.paragraphs(nb=faker.random.number({'min': 1, 'max': 1}))
+  highlights: faker.random.words(1),
+  introDesc: faker.random.words(1),
+  spaceDesc: faker.random.words(1),
+  guestDesc: faker.random.words(1),
+  otherDesc: faker.random.words(1)
 });
 
 const createFakeBookings = (listingId) => {
@@ -63,8 +63,8 @@ const createFakeBookings = (listingId) => {
 
 exports.seed = async function(knex, Promise) {
   let count = 0;
-  const batchSize = 2000;
-  const batchCount = 5000;
+  const batchSize = 1000;
+  const batchCount = 1;
   // const batchCount = 156;
   const start = Date.now();
   const inc = () => count++;
@@ -120,9 +120,33 @@ exports.seed = async function(knex, Promise) {
   end = Date.now();
   min = (oldEnd - end) * -1.666e-5;
   sec = Math.floor((min - Math.floor(min)) * 60);
-  console.log(`Total Time to ${total} bookings: ${Math.floor(min)} minutes ${sec} seconds`);
+  console.log(`Total Time to seed ${total} bookings: ${Math.floor(min)} minutes ${sec} seconds`);
+
+  for (let i = 1; i <= total; i++) {
+    let randIndex = faker.random.number({'min': 1, 'max': total});
+    await knex('bookings')
+      .where('id', '=', i)
+      .update({
+        id: 0
+      });
+    await knex('bookings')
+      .where('id', '=', randIndex)
+      .update({
+        id: i
+      });
+    await knex('bookings')
+      .where('id', '=', 0)
+      .update({
+        id: randIndex
+      });
+  }
+
+  oldEnd = end;
+  end = Date.now();
+  min = (oldEnd - end) * -1.666e-5;
+  sec = Math.floor((min - Math.floor(min)) * 60);
+  console.log(`Total Time scramble: ${Math.floor(min)} minutes ${sec} seconds`);
   min = (start - end) * -1.666e-5;
   sec = Math.floor((min - Math.floor(min)) * 60);
   console.log(`Total Time: ${Math.floor(min)} minutes ${sec} seconds`);
 };
-
