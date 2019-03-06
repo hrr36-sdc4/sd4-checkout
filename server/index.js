@@ -38,7 +38,7 @@ app.route('/rooms/bookings/:listingId')
       .then(records => res.send(records))
       .catch(err => console.log(err));
   })
-  post((req, res) => {
+  .post((req, res) => {
     db.bookRoom(req.params.listingId, req.body)
       .then(() => res.end())
       .catch(err => console.log(err));
