@@ -63,8 +63,8 @@ const createFakeBookings = (listingId, total) => {
 
 exports.seed = async function(knex, Promise) {
   let count = 0;
-  const batchSize = 10000;
-  const batchCount = 1000;
+  const batchSize = 8000;
+  const batchCount = 1250;
   const start = Date.now();
   const inc = () => count++;
   const deleteCsv = (name) => {
