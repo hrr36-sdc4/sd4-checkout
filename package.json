@@ -13,7 +13,9 @@
     "start": "nodemon server/index.js",
     "build-sass": "sass --watch client/styles:public/styles",
     "seed-mariadb": "knex seed:run",
-    "db-setup": "knex migrate:latest"
+    "db-setup": "knex migrate:latest",
+    "db2-setup": "node db/cassandra/setup.js",
+    "generate": "node db/cassandra/seed.js"
   },
   "jest": {
     "moduleNameMapper": {
@@ -30,6 +32,7 @@
     "body-parser": "^1.17.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "csv-write-stream": "^2.0.0",
     "enzyme": "^3.8.0",
     "express": "^4.15.0",
     "express-cassandra": "^2.3.0",
