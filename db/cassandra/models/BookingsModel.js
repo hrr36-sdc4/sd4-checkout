@@ -3,7 +3,7 @@ module.exports = {
     id: 'int',
     checkin: 'text',
     checkout: 'text',
-    numGuests: 'int',
+    num_guests: 'int',
     total: 'int',
     listing_id: 'int'
   },

@@ -4,17 +4,17 @@ module.exports = {
     price: 'int',
     stars: 'decimal',
     reviews: 'int',
-    cleaningFee: 'int',
-    serviceFee: 'int',
+    cleaning_fee: 'int',
+    service_fee: 'int',
     guests: 'int',
-    minNights: 'int',
+    min_nights: 'int',
     title: 'text',
     address: 'text',
     highlights: 'text',
-    introDesc: 'text',
-    spaceDesc: 'text',
-    guestDesc: 'text',
-    otherDesc: 'text'
+    intro_desc: 'text',
+    space_desc: 'text',
+    guest_desc: 'text',
+    other_desc: 'text'
   },
   key:['id']
 }

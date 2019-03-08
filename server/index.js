@@ -20,7 +20,7 @@ app.route('/rooms/:listingId')
       .then(() => res.end())
       .catch(err => console.log(err));
   })
-  .update((req, res) => {
+  .put((req, res) => {
     db.updateListing(req.params.listingId, req.body)
       .then(() => res.end())
       .catch(err => console.log(err));
@@ -50,7 +50,7 @@ app.route('/rooms/bookings/:bookingId')
       .then(() => res.end())
       .catch(err => console.log(err));
   })
-  .update((req, res) => {
+  .put((req, res) => {
     db.updateBooking(req.params.bookingId, req.body)
       .then(() => res.end())
       .catch(err => console.log(err));

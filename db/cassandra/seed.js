@@ -16,11 +16,11 @@ const createFakeListings = (id) => ({
     'min': 10,
     'max': 300
   }),
-  cleaningFee: faker.random.number({
+  cleaning_fee: faker.random.number({
     'min': 30,
     'max': 70
   }),
-  serviceFee: faker.random.number({
+  service_fee: faker.random.number({
     'min': 50,
     'max': 100
   }),
@@ -28,17 +28,17 @@ const createFakeListings = (id) => ({
     'min': 1,
     'max': 4
   }),
-  minNights: faker.random.number({
+  min_nights: faker.random.number({
     'min': 1,
     'max': 3
   }),
   title: faker.name.firstName() + `'s ` + faker.company.catchPhraseAdjective() + ' Home',
   address: faker.address.city(),
   highlights: faker.random.words(1),
-  introDesc: faker.random.words(1),
-  spaceDesc: faker.random.words(1),
-  guestDesc: faker.random.words(1),
-  otherDesc: faker.random.words(1)
+  intro_desc: faker.random.words(1),
+  space_desc: faker.random.words(1),
+  guest_desc: faker.random.words(1),
+  other_desc: faker.random.words(1)
 });
 
 const createFakeBookings = (listingId, current) => {
@@ -57,7 +57,7 @@ const createFakeBookings = (listingId, current) => {
       id: id,
       checkin: `0${startMonth}-${startDay < 10 ? '0' + startDay : startDay}-2019`,
       checkout: `0${untilMonth}-${untilDay < 10 ? '0' + untilDay : untilDay}-2019`,
-      numGuests: faker.random.number({'min': 1, 'max': 4}),
+      num_guests: faker.random.number({'min': 1, 'max': 4}),
       total: faker.random.number({'min': 100, 'max': 3000}),
       listing_id: listingId,
     })
@@ -69,11 +69,11 @@ const createFakeBookings = (listingId, current) => {
 const seed = async function() {
   let count = 0;
   const batchSize = 1000;
-  const batchCount = 1000;
+  const batchCount = 10000;
   const start = Date.now();
   var writer = csvWriter({ 
     headers: [
-      "id", "price", "stars", "reviews", "cleaningFee", "serviceFee", "guests", "minNights", "title", "address", "highlights", "introDesc", "spaceDesc", "guestDesc", "otherDesc"
+      "id", "price", "stars", "reviews", "cleaning_fee", "service_fee", "guests", "min_nights", "title", "address", "highlights", "intro_desc", "space_desc", "guest_desc", "other_desc"
     ]
   });
   writer.pipe(fs.createWriteStream('./db/cassandra/listings.csv'));
@@ -84,6 +84,9 @@ const seed = async function() {
     }
     fakeListings.map(listing => writer.write(listing));
     count++;
+    if (count % 1000 === 0) {
+      console.log(`Added ${count*batchSize} listings`);
+    }
   }
   writer.end();
 
@@ -94,7 +97,7 @@ const seed = async function() {
 
   writer = csvWriter({ 
     headers: [
-      "id", "checkin", "checkout", "numGuests", "total", "listing_id"
+      "id", "checkin", "checkout", "num_guests", "total", "listing_id"
     ]
   });
   writer.pipe(fs.createWriteStream('./db/cassandra/bookings.csv'));
@@ -108,6 +111,9 @@ const seed = async function() {
     total += fakeBookings.length;
     fakeBookings.map(booking => writer.write(booking));
     count++;
+    if (count % 1000 === 0) {
+      console.log(`Added ${total} bookings`);
+    }
   }
   writer.end();
   let oldEnd = end;
