@@ -31,7 +31,8 @@ class Checkout extends React.Component {
       endDate: null,
       focusedInput: null,
       reservedDays: [],
-      modalOpen: false
+      modalOpen: false,
+      listingId: (Math.floor(Math.random()*10000000) + 1).toString()
     }
 
     this.openModal = this.openModal.bind(this);
@@ -52,9 +53,8 @@ class Checkout extends React.Component {
 
 // Get request for listing information
   fetchRoom() {
-    let listingId = window.location.pathname.split('/')[1];
     $.ajax({
-      url: path.join('rooms', listingId),
+      url: path.join('rooms', this.state.listingId),
       type: 'GET',
       success: (results) => {
         this.setState({
@@ -79,9 +79,8 @@ class Checkout extends React.Component {
     this.setState({
       reservedDays: []
     });
-
     $.ajax({
-      url: '/rooms/bookings/1',
+      url: path.join('rooms', 'bookings', this.state.listingId),
       type: 'get',
       success: (results) => {
         for (var i = 0; i < results.length; i++) {
@@ -137,9 +136,9 @@ class Checkout extends React.Component {
     // Takes the date from the moment and replaces the / with - for entry into the database
     var checkin = this.state.startDate.format('L').replace(/[/]/g, '-');
     var checkout = this.state.endDate.format('L').replace(/[/]/g, '-');
-    let listingId = window.location.pathname.split('/')[2];
+
     $.ajax({
-      url: path.join('rooms', 'bookings', listingId),
+      url: path.join('rooms', 'bookings', this.state.listingId),
       type: 'post',
       data: {
         checkIn: checkin,
