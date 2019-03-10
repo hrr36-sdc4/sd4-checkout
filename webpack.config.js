@@ -1,9 +1,19 @@
 var path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require("webpack");
 var SRC_DIR = path.join(__dirname, '/client');
 var DIST_DIR = path.join(__dirname, '/public');
 
 module.exports = {
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      })
+    ]
+  },
   entry: {
     app: [`${SRC_DIR}/index.jsx`, `${SRC_DIR}/desc.jsx`]
   },
