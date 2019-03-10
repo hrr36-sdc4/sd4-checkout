@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jest --forceExit --verbose=false --coverage",
-    "react-dev": "webpack -d --watch",
+    "react-dev": "webpack -d -p --watch",
     "start": "nodemon server/index.js",
     "build-sass": "sass --watch client/styles:public/styles",
     "seed-mariadb": "knex seed:run",
