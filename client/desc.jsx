@@ -18,7 +18,7 @@ class ListDesc extends React.Component {
             guestDesc: '',
             otherDesc: '',
             open: false,
-            listingId: (Math.floor(Math.random()*10000000) + 1).toString()
+            listingId: (Math.floor(Math.random()*2000000) + 8000000).toString()
         }
     }
     componentDidMount() {

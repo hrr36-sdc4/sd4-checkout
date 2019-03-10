@@ -33,7 +33,7 @@ class Checkout extends React.Component {
       focusedInput: null,
       reservedDays: [],
       modalOpen: false,
-      listingId: (Math.floor(Math.random()*10000000) + 1).toString()
+      listingId: (Math.floor(Math.random()*2000000) + 8000000).toString()
     }
 
     this.openModal = this.openModal.bind(this);
