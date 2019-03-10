@@ -2,8 +2,10 @@ require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db');
+const compression = require('compression');
 
 let app = express();
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../public'));
