@@ -5,15 +5,6 @@ var SRC_DIR = path.join(__dirname, '/client');
 var DIST_DIR = path.join(__dirname, '/public');
 
 module.exports = {
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true // set to true if you want JS source maps
-      })
-    ]
-  },
   entry: {
     app: [`${SRC_DIR}/index.jsx`, `${SRC_DIR}/desc.jsx`]
   },
@@ -59,6 +50,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/,
+      minimize: true
+    })
   ]
 };
