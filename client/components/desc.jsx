@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import path from 'path';
 import axios from 'axios';
-import './styles/desc.scss';
+import '../styles/desc.scss';
 import Media from 'react-media';
 
 class ListDesc extends React.Component {
@@ -108,6 +108,3 @@ class ListDesc extends React.Component {
         )
     }
 }
-// Added the export and the document.createElement for testing purposes
-export default ListDesc;
-ReactDOM.render(<ListDesc />, document.getElementById('desc') || document.createElement('div'));
