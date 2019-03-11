@@ -1,9 +1,5 @@
 var path = require('path');
 const webpack = require("webpack");
-var SRC_DIR = path.join(__dirname, '/client');
-var DIST_DIR = path.join(__dirname, '/public');
-
-// See: https://stackoverflow.com/questions/37788142/webpack-for-back-end
 
 const common = {
   context: __dirname + '/client',
