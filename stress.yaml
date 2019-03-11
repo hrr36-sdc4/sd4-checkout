@@ -14,4 +14,7 @@ scenarios:
         url: "/rooms/{{$randomNumber(1,100000)}}"
     - post:
         url: "/rooms"
+    - get:
+        url: "/rooms/bookings/{{$randomNumber(1,100000)}}"
+
 
