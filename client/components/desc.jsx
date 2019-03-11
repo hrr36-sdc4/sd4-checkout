@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../styles/desc.scss';
 import Media from 'react-media';
 
-class ListDesc extends React.Component {
+export default class ListDesc extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

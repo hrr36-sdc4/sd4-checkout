@@ -13,7 +13,7 @@ import { DateRangePicker } from 'react-dates';
 import FormBot from './form-bot.jsx';
 import Header from './form-top.jsx';
 
-class Checkout extends React.Component {
+export default class Checkout extends React.Component {
   constructor(props) {
     super(props);
 
@@ -189,7 +189,6 @@ class Checkout extends React.Component {
         })
       }
     } else {
-      console.log('null');
       this.setState({
         numNights: 0,
         showPayment: false
