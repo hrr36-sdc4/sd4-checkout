@@ -4,6 +4,7 @@ import Media from 'react-media';
 import Modal from 'react-modal';
 import path from 'path';
 import $ from 'jquery';
+import axios from 'axios';
 import moment from 'moment';
 import './styles/input.scss';
 import 'react-dates/initialize';
@@ -32,7 +33,7 @@ class Checkout extends React.Component {
       focusedInput: null,
       reservedDays: [],
       modalOpen: false,
-      listingId: (Math.floor(Math.random()*10000000) + 1).toString()
+      listingId: (Math.floor(Math.random()*2000000) + 8000000).toString()
     }
 
     this.openModal = this.openModal.bind(this);
@@ -53,24 +54,19 @@ class Checkout extends React.Component {
 
 // Get request for listing information
   fetchRoom() {
-    $.ajax({
-      url: path.join('rooms', this.state.listingId),
-      type: 'GET',
-      success: (results) => {
+    axios.get(path.join('rooms', this.state.listingId))
+      .then((results) => {
         this.setState({
-          nightlyPrice: results[0].price,
-          reviews: results[0].reviews,
-          stars: results[0].stars,
-          cleaningFee: results[0].cleaningFee,
-          maxGuests: results[0].guests,
-          serviceFee: results[0].serviceFee,
-          minNights: results[0].minNights,
+          nightlyPrice: results.data[0].price,
+          reviews: results.data[0].reviews,
+          stars: results.data[0].stars,
+          cleaningFee: results.data[0].cleaningFee,
+          maxGuests: results.data[0].guests,
+          serviceFee: results.data[0].serviceFee,
+          minNights: results.data[0].minNights,
         });
-      },
-      error: () => {
-        console.log('err');
-      }
-    });
+      })
+      .catch(err => console.log(err));
   }
 
 // Get request to server. Populates blockedDays with ranges
@@ -79,18 +75,16 @@ class Checkout extends React.Component {
     this.setState({
       reservedDays: []
     });
-    $.ajax({
-      url: path.join('rooms', 'bookings', this.state.listingId),
-      type: 'get',
-      success: (results) => {
+    axios.get(path.join('rooms', 'bookings', this.state.listingId))
+      .then((results) => {
         for (var i = 0; i < results.length; i++) {
           var newState = this.state.reservedDays.concat([[results[i].checkin, results[i].checkout]]);
           this.setState({
             reservedDays: newState
           });
         }
-      }
-    })
+      })
+      .catch(err => console.log(err));
   }
 
   // Checks to see if any dates between start and end have already been booked
@@ -136,18 +130,14 @@ class Checkout extends React.Component {
     // Takes the date from the moment and replaces the / with - for entry into the database
     var checkin = this.state.startDate.format('L').replace(/[/]/g, '-');
     var checkout = this.state.endDate.format('L').replace(/[/]/g, '-');
-
-    $.ajax({
-      url: path.join('rooms', 'bookings', this.state.listingId),
-      type: 'post',
-      data: {
-        checkIn: checkin,
-        checkOut: checkout,
-        numGuests: reservationInfo.guests,
-        total: reservationInfo.total
-      },
-      // On successful booking, makes a GET request to update the list of blockedDays
-      success: () => {
+    const data = {
+      checkIn: checkin,
+      checkOut: checkout,
+      numGuests: reservationInfo.guests,
+      total: reservationInfo.total
+    };
+    axios.post(path.join('rooms', 'bookings', this.state.listingId), data)
+      .then(() => {
         this.fetchBookings();
         this.setState({
           startDate: null,
@@ -155,19 +145,15 @@ class Checkout extends React.Component {
           numNights: 0,
           numGuests: 1,
           showPayment: false
-        })
-
+        });
         if (this.state.modalOpen === true) {
           $("<div class='warning'>Successfully booked</div>").prependTo('.checkout-modal').fadeOut(2000);
 
         } else if (this.state.modalOpen === false) {
           $("<div class='warning'>Successfully booked</div>").prependTo('#app').fadeOut(2000);
         }
-      },
-      error: ()=> {
-        console.log('failed to book');
-      }
-    });
+      })
+      .catch(err => console.log(err));
   }
 
   // Calculates the number of nights the reservation is

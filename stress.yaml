@@ -1,12 +1,12 @@
 config:
   target: 'http://localhost:3000'
   phases:
-    - duration: 30
+    - duration: 5
       arrivalRate: 250
       rampTo: 500
       name: "warming up"
-    - duration: 60
-      arrivalRate: 1000
+    - duration: 10
+      arrivalRate: 1500
       name: "max load"
 scenarios:
   - flow:
@@ -14,3 +14,7 @@ scenarios:
         url: "/rooms/{{$randomNumber(1,100000)}}"
     - post:
         url: "/rooms"
+    - get:
+        url: "/rooms/bookings/{{$randomNumber(1,100000)}}"
+
+

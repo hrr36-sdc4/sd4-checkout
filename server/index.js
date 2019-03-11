@@ -2,16 +2,37 @@ require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db');
+const compression = require('compression');
+const redis = require('redis');
 
 let app = express();
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../public'));
 
 let port = 3000;
+const client = redis.createClient();
+
+const redisMiddleware = (req, res, next) => {
+  const key = `__express__${req.originalUrl}` || req.url;
+  client.get(key, (err, reply) => {
+    if (reply) {
+      res.send(reply);
+    } else {
+      res.sendResponse = res.send;
+      res.send = (body) => {
+        client.set(key, JSON.stringify(body));
+        res.sendResponse(body);
+      };
+      next();
+    }
+  });
+};
+
 
 app.route('/rooms/:listingId')
-  .get((req, res) => {
+  .get(redisMiddleware, (req, res) => {
     db.getRoom(req.params.listingId)
       .then(records => res.send(records))
       .catch(err => console.log(err));
@@ -34,7 +55,7 @@ app.post('/rooms/', (req, res) => {
 });
 
 app.route('/rooms/bookings/:listingId')
-  .get((req, res) => {
+  .get(redisMiddleware, (req, res) => {
     db.getBookings(req.params.listingId)
       .then(records => res.send(records))
       .catch(err => console.log(err));

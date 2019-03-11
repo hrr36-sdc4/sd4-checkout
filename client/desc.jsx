@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import path from 'path';
-import $ from 'jquery';
+import axios from 'axios';
 import './styles/desc.scss';
 import Media from 'react-media';
 
@@ -18,7 +18,7 @@ class ListDesc extends React.Component {
             guestDesc: '',
             otherDesc: '',
             open: false,
-            listingId: (Math.floor(Math.random()*10000000) + 1).toString()
+            listingId: (Math.floor(Math.random()*2000000) + 8000000).toString()
         }
     }
     componentDidMount() {
@@ -26,25 +26,20 @@ class ListDesc extends React.Component {
     }
 
     fetchRoom() {
-        $.ajax({
-          url: path.join('rooms', this.state.listingId),
-          type: 'GET',
-          success: (results) => {
-            this.setState({
-                maxGuests: results[0].guests,
-                title: results[0].title,
-                address: results[0].address,
-                highlights: results[0].highlights,
-                introDesc: results[0].introDesc,
-                spaceDesc: results[0].spaceDesc,
-                guestDesc: results[0].guestDesc,
-                otherDesc: results[0].otherDesc
-            });
-          },
-          error: () => {
-            console.log('err');
-          }
+      axios.get(path.join('rooms', this.state.listingId))
+      .then((results) => {
+        this.setState({
+          maxGuests: results.data[0].guests,
+          title: results.data[0].title,
+          address: results.data[0].address,
+          highlights: results.data[0].highlights,
+          introDesc: results.data[0].introDesc,
+          spaceDesc: results.data[0].spaceDesc,
+          guestDesc: results.data[0].guestDesc,
+          otherDesc: results.data[0].otherDesc
         });
+      })
+      .catch(err => console.log(err));
     }
 
     toggle() {
