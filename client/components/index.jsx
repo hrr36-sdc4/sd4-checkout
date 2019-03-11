@@ -6,12 +6,12 @@ import path from 'path';
 import $ from 'jquery';
 import axios from 'axios';
 import moment from 'moment';
-import './styles/input.scss';
+import '../styles/input.scss';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
-import FormBot from './components/form-bot.jsx';
-import Header from './components/form-top.jsx';
+import FormBot from './form-bot.jsx';
+import Header from './form-top.jsx';
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -312,6 +312,3 @@ class Checkout extends React.Component {
     )
   }
 }
-
-export default Checkout;
-ReactDOM.render(<Checkout />, document.getElementById('app') || document.createElement('div'));

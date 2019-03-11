@@ -46,9 +46,29 @@ const descServer = {
   }
 };
 
+const checkoutClient = {
+  entry: './checkout-client.js',
+  output: {
+    path: __dirname + '/public',
+    filename: 'checkout-app.js'
+  }
+};
+
+const checkoutServer = {
+  entry: './checkout-server.js',
+  target: 'node',
+  output: {
+    path: __dirname + '/public',
+    filename: 'checkout-app-server.js',
+    libraryTarget: 'commonjs-module'
+  }
+};
+
 module.exports = [
   Object.assign({}, common, descClient),
-  Object.assign({}, common, descServer)
+  Object.assign({}, common, descServer),
+  Object.assign({}, common, checkoutClient),
+  Object.assign({}, common, checkoutServer)
 ];
 
 
