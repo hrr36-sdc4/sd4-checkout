@@ -1,5 +1,4 @@
 var path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require("webpack");
 var SRC_DIR = path.join(__dirname, '/client');
 var DIST_DIR = path.join(__dirname, '/public');
