@@ -26,20 +26,20 @@ class ListDesc extends React.Component {
     }
 
     fetchRoom() {
-      axios.get(path.join('rooms', this.state.listingId))
-      .then((results) => {
-        this.setState({
-          maxGuests: results.data[0].guests,
-          title: results.data[0].title,
-          address: results.data[0].address,
-          highlights: results.data[0].highlights,
-          introDesc: results.data[0].introDesc,
-          spaceDesc: results.data[0].spaceDesc,
-          guestDesc: results.data[0].guestDesc,
-          otherDesc: results.data[0].otherDesc
-        });
-      })
-      .catch(err => console.log(err));
+        axios.get(path.join('rooms', this.state.listingId))
+        .then((results) => {
+            this.setState({
+            maxGuests: results.data[0].guests,
+            title: results.data[0].title,
+            address: results.data[0].address,
+            highlights: results.data[0].highlights,
+            introDesc: results.data[0].introDesc,
+            spaceDesc: results.data[0].spaceDesc,
+            guestDesc: results.data[0].guestDesc,
+            otherDesc: results.data[0].otherDesc
+            });
+        })
+        .catch(err => console.log(err));
     }
 
     toggle() {
