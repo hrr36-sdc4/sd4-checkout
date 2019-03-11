@@ -3,51 +3,22 @@ const webpack = require("webpack");
 var SRC_DIR = path.join(__dirname, '/client');
 var DIST_DIR = path.join(__dirname, '/public');
 
-module.exports = {
-  entry: {
-    app: [`${SRC_DIR}/index.jsx`, `${SRC_DIR}/desc.jsx`]
-  },
-  output: {
-    filename: 'bundle.js',
-    path: DIST_DIR
-  },
-  module : {
-    loaders : [
+// See: https://stackoverflow.com/questions/37788142/webpack-for-back-end
+
+const common = {
+  context: __dirname + '/client',
+  module: {
+    loaders: [
       {
-        test : /\.jsx?/,
-        include : SRC_DIR,
-        loader : 'babel-loader',
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
-        }
+          presets: ['react', 'es2015', 'env']
+        },
       },
-      {
-        test : /\.css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          }
-        ]
-      },
-      {
-        test : /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
-      }
-    ]
-  },
+    ],
+  }, 
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.optimize.UglifyJsPlugin({
@@ -56,3 +27,28 @@ module.exports = {
     })
   ]
 };
+
+const descClient = {
+  entry: './desc-client.js',
+  output: {
+    path: __dirname + '/public',
+    filename: 'desc-app.js'
+  }
+};
+
+const descServer = {
+  entry: './desc-server.js',
+  target: 'node',
+  output: {
+    path: __dirname + '/public',
+    filename: 'desc-app-server.js',
+    libraryTarget: 'commonjs-module'
+  }
+};
+
+module.exports = [
+  Object.assign({}, common, descClient),
+  Object.assign({}, common, descServer)
+];
+
+
