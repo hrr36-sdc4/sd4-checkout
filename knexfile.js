@@ -31,5 +31,20 @@ module.exports = {
     seeds: {
       directory: __dirname + '/db/mariadb/development'
     }
-  }
+  },
+  production: {
+    client: 'mysql',
+    connection: {
+      host: '18.144.26.136',
+      user: user,
+      password: password,
+      database: 'rooms'
+    },
+    migrations: {
+      directory: __dirname + '/db/mariadb/migrations'
+    },
+    seeds: {
+      directory: __dirname + '/db/mariadb/development'
+    }
+  },
 }
