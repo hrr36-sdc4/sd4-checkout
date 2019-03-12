@@ -1,26 +1,17 @@
 var path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require("webpack");
-var SRC_DIR = path.join(__dirname, '/client');
-var DIST_DIR = path.join(__dirname, '/public');
 
-module.exports = {
-  entry: {
-    app: [`${SRC_DIR}/index.jsx`, `${SRC_DIR}/desc.jsx`]
-  },
-  output: {
-    filename: 'bundle.js',
-    path: DIST_DIR
-  },
-  module : {
-    loaders : [
+const common = {
+  context: __dirname + '/client',
+  module: {
+    loaders: [
       {
-        test : /\.jsx?/,
-        include : SRC_DIR,
-        loader : 'babel-loader',
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
-        }
+          presets: ['react', 'es2015', 'env']
+        },
       },
       {
         test : /\.css$/,
@@ -47,13 +38,60 @@ module.exports = {
           }
         ]
       }
-    ]
-  },
+    ],
+  }, 
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      minimize: true
-    })
+      sourceMap: true,   // enable source maps to map errors (stack traces) to modules
+      output: {
+        comments: false, // remove all comments
+      },
+    }),
   ]
 };
+
+const descClient = {
+  entry: './desc-client.js',
+  output: {
+    path: __dirname + '/public',
+    filename: 'desc-app.js'
+  }
+};
+
+const descServer = {
+  entry: './desc-server.js',
+  target: 'node',
+  output: {
+    path: __dirname + '/public',
+    filename: 'desc-app-server.js',
+    libraryTarget: 'commonjs-module'
+  }
+};
+
+const checkoutClient = {
+  entry: './checkout-client.js',
+  output: {
+    path: __dirname + '/public',
+    filename: 'checkout-app.js'
+  }
+};
+
+const checkoutServer = {
+  entry: './checkout-server.js',
+  target: 'node',
+  output: {
+    path: __dirname + '/public',
+    filename: 'checkout-app-server.js',
+    libraryTarget: 'commonjs-module'
+  }
+};
+
+module.exports = [
+  Object.assign({}, common, descClient),
+  Object.assign({}, common, descServer),
+  Object.assign({}, common, checkoutClient),
+  Object.assign({}, common, checkoutServer)
+];
+
+
