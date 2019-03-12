@@ -12,6 +12,7 @@
     "react-dev": "webpack -d -p --watch",
     "react-prod": "webpack -d -p",
     "start": "nodemon server/index.js",
+    "production": "NODE_ENV=production node server/index.js",
     "build-sass": "sass --watch client/styles:public/styles",
     "seed-mariadb": "knex seed:run",
     "db-setup": "knex migrate:latest",
