@@ -10,6 +10,7 @@
   "scripts": {
     "test": "jest --forceExit --verbose=false --coverage",
     "react-dev": "webpack -d -p --watch",
+    "react-prod": "webpack -d -p",
     "start": "nodemon server/index.js",
     "build-sass": "sass --watch client/styles:public/styles",
     "seed-mariadb": "knex seed:run",
