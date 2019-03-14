@@ -1,11 +1,13 @@
 require('newrelic');
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./db');
 const compression = require('compression');
 const redis = require('redis');
 
 let app = express();
+app.use(cors());
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
