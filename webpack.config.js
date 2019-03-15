@@ -51,42 +51,6 @@ const common = {
   ]
 };
 
-const descClient = {
-  entry: './desc-client.js',
-  output: {
-    path: __dirname + '/public',
-    filename: 'desc-app.js'
-  }
-};
-
-const descServer = {
-  entry: './desc-server.js',
-  target: 'node',
-  output: {
-    path: __dirname + '/public',
-    filename: 'desc-app-server.js',
-    libraryTarget: 'commonjs-module'
-  }
-};
-
-const checkoutClient = {
-  entry: './checkout-client.js',
-  output: {
-    path: __dirname + '/public',
-    filename: 'checkout-app.js'
-  }
-};
-
-const checkoutServer = {
-  entry: './checkout-server.js',
-  target: 'node',
-  output: {
-    path: __dirname + '/public',
-    filename: 'checkout-app-server.js',
-    libraryTarget: 'commonjs-module'
-  }
-};
-
 const client = {
   entry: './client.js',
   output: {
@@ -106,12 +70,6 @@ const server = {
 };
 
 module.exports = [
-  Object.assign({}, common, descClient),
-  Object.assign({}, common, descServer),
-  Object.assign({}, common, checkoutClient),
-  Object.assign({}, common, checkoutServer),
   Object.assign({}, common, client),
   Object.assign({}, common, server)
 ];
-
-
