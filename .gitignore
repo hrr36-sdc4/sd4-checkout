@@ -1,8 +1,8 @@
 ### node etc ###
 bundle.js
 config.js
-*-app-server.js
-*-app.js
+app-server.js
+app.js
 
 # Logs
 logs
