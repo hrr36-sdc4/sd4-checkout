@@ -17,9 +17,6 @@ const common = {
         test : /\.css$/,
         use: [
           {
-            loader: 'style-loader'
-          },
-          {
             loader: 'css-loader'
           }
         ]
@@ -27,9 +24,6 @@ const common = {
       {
         test : /\.scss$/,
         use: [
-          {
-            loader: 'style-loader'
-          },
           {
             loader: 'css-loader'
           },
